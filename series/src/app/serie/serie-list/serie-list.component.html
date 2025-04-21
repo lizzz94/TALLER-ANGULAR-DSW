@@ -1,7 +1,8 @@
 <div class="container mt-4">
-  <h2 class="mb-3">TV Series</h2>
+  <h3 class="bg-info text-white p-2">TV Series</h3>
+
   <table class="table table-striped">
-    <thead class="thead-dark">
+    <thead>
       <tr>
         <th>#</th>
         <th>Name</th>
@@ -10,13 +11,30 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let serie of series; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td><a [href]="serie.webpage" target="_blank">{{ serie.name }}</a></td>
+      <tr *ngFor="let serie of series" (click)="onSelect(serie)">
+        <td>{{ serie.id }}</td>
+        <td>
+          <a href="{{ serie.webpage }}" target="_blank">{{ serie.name }}</a>
+        </td>
         <td>{{ serie.channel }}</td>
         <td>{{ serie.seasons }}</td>
       </tr>
     </tbody>
   </table>
-</div>
 
+  <div class="mt-4" *ngIf="selectedSerie">
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="selectedSerie.poster" [alt]="selectedSerie.name" class="img-fluid">
+      </div>
+      <div class="col-md-8">
+        <h4>{{ selectedSerie.name }}</h4>
+        <p>{{ selectedSerie.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <strong>Seasons average: {{ averageSeasons | number:'1.0-0' }}</strong>
+  </div>
+</div>
